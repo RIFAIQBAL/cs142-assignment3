@@ -1,0 +1,106 @@
+#include<iostream>
+using namespace std;
+
+
+struct node{
+int info;
+node *next;
+node*previous;
+}
+class linked_list{
+private:
+node *head,*tail;
+public:
+linked_list(){
+head=NULL;
+tail=NULL;
+}
+
+void insertAt(int data,int pos){
+node *temp=new node;
+node *current;
+temp->info=data;
+current=head;
+for(int i=1;i<pos-1;i++){
+
+current=current->next;
+}
+temp->next=current->next;
+temp->next->previous = temp;
+current->next=temp;
+temp->previous=current;
+}
+void insert(int data){
+
+node *temp=new node;
+temp->info=data;
+if(head==NULL)
+{temp=head;
+temp=tail;
+}
+else
+tail->next=temp;
+temp->next=NULL;
+temp->previous=tail;
+tail=tail->next;
+}
+
+void deleteq(){
+node *temp;
+temp=tail;
+tail=tail->previous;
+tail->next=NULL;
+temp->previous = NULL;
+delete temp;
+}
+void deleteAt(int pos){
+node *temp;
+node *current;
+current=head;
+for(int i=1;i<pos;i++){
+
+current=current->next;
+}
+temp=current;
+current=current->previous;
+current->next=temp->next;
+temp->next->previous = current;
+temp->next = NULL;
+temp->previous = NULL;
+delete temp;
+}
+
+void CountItems(int i){
+node *temp;
+temp=head;
+i=1;
+while(temp->next!=NULL){
+temp=temp->next;
+i++;
+}
+cout<<i;
+}
+void display(){
+node *temp;
+temp=head;
+while (temp != NULL) {
+	cout << temp->info << " --> ";
+	temp = temp->next;
+}
+}
+
+int main(){
+linked_list ll;
+	ll.insert(2);
+	ll.insert(3);
+	ll.insert(4);
+	ll.insertAt(13,8);
+	ll.deleteq();
+	ll.deleteAt(4);
+	ll.display;
+	ll.CountItems();
+
+	return 0;
+
+};
+
